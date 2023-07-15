@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title></title>
+	<link href="estilo.css" rel="stylesheet">
+</head>
+<body>
+	<input id="campo1" type="number" />
+	<select id="operador">
+  	<option value="+" selected>+</option>
+	<option value="-">-</option>
+	<option value="*">*</option>
+ 	<option value="/">/</option>
+	<option value="%">%</option>
+	</select>
+	<input id="campo2" type="number" />
+	<span id="resultado"></span>
+
+	<script>
+		var campo1 = document.getElementById("campo1");
+		var campo2 = document.getElementById("campo2");
+		var operador = document.getElementById("operador");
+		var resultado = document.getElementById("resultado");
+		var somenteNumeros = new RegExp("[^0-9]", "g");
+
+		var toNumber = function (value) {
+  			var number = value.replace(somenteNumeros, "");    
+  			number = parseInt(number);    
+  			if (isNaN(number)) 
+    		number = 0;
+  			return number;
+		}
+
+		var somenteNumeros = function (event) {
+ 			 event.target.value = toNumber(event.target.value);
+		}
+
+		var onInput = function (event) {
+  			var num1 = toNumber(campo1.value);
+  			var num2 = toNumber(campo2.value);
+  			var calc = num1 + " " + operador.value + " " + num2
+  			resultado.textContent = calc + " = " + eval(calc);
+		}
+
+		campo1.addEventListener("input", somenteNumeros);
+		campo2.addEventListener("input", somenteNumeros);
+
+		campo1.addEventListener("input", onInput);
+		campo2.addEventListener("input", onInput);
+		operador.addEventListener("input", onInput);
+	</script>
+</body>
+</html>
